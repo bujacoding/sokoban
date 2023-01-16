@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="7" height="7" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" source="MainLev2.0.tsx"/>
+ <layer id="1" name="plate" width="7" height="7">
+  <data encoding="csv">
+36,37,38,39,40,40,41,
+87,88,243,241,139,91,92,
+138,192,192,88,192,142,143,
+189,242,190,91,244,193,194,
+240,190,142,193,90,244,245,
+240,241,242,243,243,244,245,
+291,292,293,294,294,295,296
+</data>
+ </layer>
+ <objectgroup id="3" name="obstacles"/>
+</map>

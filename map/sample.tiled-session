@@ -1,0 +1,141 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "tiles/mymap.json",
+    "expandedProjectPaths": [
+        ".",
+        "tiles"
+    ],
+    "file.lastUsedOpenFilter": "모든 파일 (*)",
+    "fileStates": {
+        "0x72_DungeonTilesetII_v1.4.tsx": {
+            "scaleInDock": 2.4639,
+            "scaleInEditor": 1.67
+        },
+        "Floor.tsx": {
+            "scaleInDock": 0.7609,
+            "scaleInEditor": 1
+        },
+        "Floor2.tsx": {
+            "scaleInDock": 0.4949,
+            "scaleInEditor": 1
+        },
+        "MainLev2.0.tsx": {
+            "scaleInDock": 0.9711,
+            "scaleInEditor": 1
+        },
+        "Terrain.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Wall.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "build-wall.tmx": {
+            "scale": 1.45,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 265.8620689655173,
+                "y": 235.1724137931035
+            }
+        },
+        "decorative.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level0001.tmx": {
+            "scale": 3.12,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 126.92307692307692,
+                "y": 111.53846153846153
+            }
+        },
+        "sample.tmx": {
+            "scale": 1.09,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 294.49541284403665,
+                "y": 491.2844036697247
+            }
+        },
+        "sokoban1.tmx": {
+            "scale": 1.44,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 159.02777777777777,
+                "y": 160.76388888888886
+            }
+        },
+        "tiles/Terrain.json": {
+            "scaleInDock": 0.6915,
+            "scaleInEditor": 1
+        },
+        "tiles/Terrain.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tiles/decorative.tsx": {
+            "scaleInDock": 1.9317,
+            "scaleInEditor": 1
+        },
+        "tiles/mainlevbuild.tsx": {
+            "scaleInDock": 0.4633,
+            "scaleInEditor": 1
+        },
+        "tiles/mymap.json": {
+            "scale": 1.6,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 193.125,
+                "y": 217.5
+            }
+        },
+        "untitled.tmx": {
+            "scale": 0.37,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 608.1081081081081,
+                "y": 831.081081081081
+            }
+        }
+    },
+    "last.exportedFilePath": "/Users/ssk/workspaces/flutter/sokoban/map",
+    "last.externalTilesetPath": "/Users/ssk/workspaces/flutter/sokoban/map/tiles",
+    "last.imagePath": "/Users/ssk/workspaces/flutter/sokoban/map/sample-tile",
+    "lastUsedTilesetExportFilter": "JSON tileset files (*.tsj *.json)",
+    "map.height": 10,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
+    "map.width": 10,
+    "openFiles": [
+        "tiles/mymap.json",
+        "tiles/Terrain.json"
+    ],
+    "project": "sample.tiled-project",
+    "recentFiles": [
+        "tiles/Terrain.json",
+        "tiles/mymap.json",
+        "tiles/Terrain.tsj",
+        "untitled.tmx",
+        "sokoban1.tmx",
+        "Terrain.tsx",
+        "Floor.tsx",
+        "Wall.tsx",
+        "Floor2.tsx",
+        "sample.tmx",
+        "decorative.tsx",
+        "MainLev2.0.tsx"
+    ],
+    "tileset.lastUsedFilter": "Tiled 타일셋 파일 (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
