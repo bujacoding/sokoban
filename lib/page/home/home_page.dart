@@ -1,5 +1,6 @@
-import 'package:bonfire/bonfire.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:sokoban/game/sokoban_game.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -11,14 +12,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return BonfireWidget(
-      joystick: Joystick(
-        directional: JoystickDirectional(),
-      ), // required
-      map: WorldMapByTiled(
-        'mymap.json',
-        forceTileSize: Vector2(32, 32),
-      ),
-    );
+    return SafeArea(child: GameWidget(game: SokobanGame()));
   }
 }

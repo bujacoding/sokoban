@@ -1,0 +1,14 @@
+{ "columns":25,
+ "image":"..\/sample-tile\/Wall.png",
+ "imageheight":10272,
+ "imagewidth":800,
+ "margin":0,
+ "name":"Wall",
+ "spacing":0,
+ "tilecount":8025,
+ "tiledversion":"1.9.2",
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.9"
+}

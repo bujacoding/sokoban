@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="11">
+ <tileset firstgid="1" source="tileset-world.tsx"/>
+ <layer id="1" name="bottom" width="10" height="10">
+  <data encoding="csv">
+45,45,45,45,45,45,45,45,45,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,27,27,27,27,27,27,27,27,45,
+45,45,45,45,45,45,45,45,45,45
+</data>
+ </layer>
+ <layer id="2" name="walls" width="10" height="10">
+  <data encoding="csv">
+0,45,45,45,0,45,45,45,45,45,
+0,0,0,0,0,0,0,0,0,45,
+0,0,0,0,0,0,0,0,0,45,
+0,0,0,0,0,0,0,0,45,45,
+0,0,0,0,0,0,0,0,9,45,
+0,0,0,0,0,0,0,0,9,45,
+0,0,0,0,0,0,0,0,9,45,
+0,0,0,0,0,0,0,0,9,45,
+0,0,0,0,0,0,45,0,9,45,
+45,45,45,45,45,45,45,45,45,45
+</data>
+ </layer>
+ <objectgroup id="3" name="start">
+  <object id="2" x="86.8228" y="90.6681">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="box">
+  <object id="3" x="104.43" y="40.2744"/>
+  <object id="4" x="55.858" y="104.835"/>
+ </objectgroup>
+ <objectgroup id="5" name="hole">
+  <object id="5" x="55.6556" y="40.4768">
+   <ellipse/>
+  </object>
+  <object id="6" x="40.4768" y="104.43">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>
