@@ -18,12 +18,13 @@ class Player extends SpriteAnimationComponent
     animation = SpriteAnimation.fromFrameData(
         await game.images.load('free_character_0.png'),
         SpriteAnimationData.sequenced(
-          amount: 12 * 1,
-          stepTime: .25,
+          texturePosition: Vector2(0, 0),
+          amount: 3,
+          stepTime: .5,
           textureSize: Vector2(32, 32),
         ));
 
-    position = Vector2(100, 100);
+    position = Vector2(32 + 16 / 2, 32 + 16/2);
     size = Vector2(32, 32);
     anchor = Anchor.center;
 
@@ -36,9 +37,7 @@ class Player extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    print('event: $event');
     if (event is! RawKeyDownEvent) return true;
-    print('event ok: $event');
 
     if (false) {
     } else if ([LogicalKeyboardKey.keyA, LogicalKeyboardKey.arrowLeft]
