@@ -27,19 +27,21 @@ class Stage extends Component {
     startingPoint = Vector2(start.x, start.y);
     _functionOnInitialized.call(startingPoint);
 
-    final boxLayer = map.tileMap.getLayer<ObjectGroup>('box')!;
-    boxLayer.objects
-        .map((TiledObject data) => BoxObject(
-            position: Vector2(
-                data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
-        .forEach(add);
-
     final holeLayer = map.tileMap.getLayer<ObjectGroup>('hole')!;
     holeLayer.objects
         .map((TiledObject data) => HoleObject(
             position: Vector2(
                 data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
         .forEach(add);
+
+    final boxLayer = map.tileMap.getLayer<ObjectGroup>('box')!;
+    boxLayer.objects
+        .map((TiledObject data) => BoxObject(
+        position: Vector2(
+            data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
+        .forEach(add);
+
+
   }
 
   void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
