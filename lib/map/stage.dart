@@ -45,4 +45,19 @@ class Stage extends Component {
   void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
     _functionOnInitialized = functionOnInitialized;
   }
+
+  bool hasWallOn(Vector2 position) {
+    if (!map.toRect().contains(position.toOffset())) return false;
+
+    final TileLayer walls = map.tileMap.getLayer<TileLayer>('walls')!;
+    final Vector2 tileSize = map.tileMap.destTileSize;
+
+    final int x = position.x ~/ tileSize.x;
+    final int y = position.y ~/ tileSize.y;
+    final int index = y * (map.width ~/ tileSize.x) + x;
+
+    return walls.data![index] != 0;
+  }
+
+
 }
