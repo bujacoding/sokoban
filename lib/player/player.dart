@@ -6,7 +6,7 @@ import '../game/sokoban_game.dart';
 
 class Player extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameRef<SokobanGame> {
-  Player() : super();
+  Player({required super.position}) : super();
 
   double moveX = 0;
   double moveY = 0;
@@ -24,14 +24,14 @@ class Player extends SpriteAnimationComponent
           textureSize: Vector2(32, 32),
         ));
 
-    position = Vector2(32 + 16 / 2, 32 + 16/2);
+    // position = Vector2(32 + 16 / 2, 32 + 16 / 2);
     size = Vector2(32, 32);
     anchor = Anchor.center;
 
     add(RectangleHitbox(
-      size: Vector2.all(16),
+      size: Vector2.all(16 - 2),
       anchor: Anchor.center,
-      position: Vector2(32 / 2, 32 / 2),
+      position: Vector2.all(32 / 2),
     ));
   }
 
@@ -66,5 +66,12 @@ class Player extends SpriteAnimationComponent
       moveX = 0;
       moveY = 0;
     }
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    print('onCollision other: ${other.position} ${other.size}');
+
+    super.onCollision(intersectionPoints, other);
   }
 }
