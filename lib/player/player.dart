@@ -63,15 +63,29 @@ class Player extends SpriteAnimationComponent
 
     if (moveX != 0 || moveY != 0) {
       final newPosition = position + Vector2(moveX, moveY);
-      moveX = 0;
-      moveY = 0;
 
-      if (game.stage.isWall(newPosition)) {
-        print('wall !!! $newPosition');
-        return;
+      try {
+
+        if (game.stage.isWall(newPosition)) {
+          throw 'wall !!! $newPosition';
+        }
+
+
+        final box = game.stage.getBox(newPosition);
+
+        if (box != null) {
+          if (!game.stage.pushBox(box, Vector2(moveX, moveY))) {
+            throw 'failed to push box ${box.position}';
+          }
+        }
+
+        position = newPosition;
+      } catch (e) {
+        print(e);
+      } finally {
+        moveX = 0;
+        moveY = 0;
       }
-
-      position = newPosition;
     }
   }
 

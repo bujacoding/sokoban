@@ -59,5 +59,26 @@ class Stage extends Component {
     return walls.data![index] != 0;
   }
 
+  BoxObject? getBox(Vector2 position) {
+    final Iterable<BoxObject> boxes =
+        children.where((component) => component is BoxObject).cast();
 
+    final found =
+        boxes.where((box) => box.toRect().contains(position.toOffset()));
+
+    if (found.isNotEmpty) return found.first;
+
+    return null;
+  }
+
+  bool pushBox(BoxObject box, Vector2 positionDelta) {
+    final newPosition = box.position + positionDelta;
+
+    if (getBox(newPosition) != null) return false;
+
+    if (isWall(newPosition)) return false;
+
+    box.position = newPosition;
+    return true;
+  }
 }
