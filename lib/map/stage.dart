@@ -19,7 +19,8 @@ class Stage extends Component {
 
   @override
   FutureOr<void> onLoad() async {
-    map = await TiledComponent.load('stage1.tmx', Vector2(tileSize, tileSize));
+    map = await TiledComponent.load(
+        'stage$level.tmx', Vector2(tileSize, tileSize));
     add(map);
 
     final startLayer = map.tileMap.getLayer<ObjectGroup>('start')!;
