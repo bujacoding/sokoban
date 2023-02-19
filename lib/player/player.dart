@@ -62,9 +62,16 @@ class Player extends SpriteAnimationComponent
     super.update(dt);
 
     if (moveX != 0 || moveY != 0) {
-      position += Vector2(moveX, moveY);
+      final newPosition = position + Vector2(moveX, moveY);
       moveX = 0;
       moveY = 0;
+
+      if (game.stage.isWall(newPosition)) {
+        print('wall !!! $newPosition');
+        return;
+      }
+
+      position = newPosition;
     }
   }
 

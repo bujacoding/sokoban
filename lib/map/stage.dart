@@ -46,7 +46,7 @@ class Stage extends Component {
     _functionOnInitialized = functionOnInitialized;
   }
 
-  bool hasWallOn(Vector2 position) {
+  bool isWall(Vector2 position) {
     if (!map.toRect().contains(position.toOffset())) return false;
 
     final TileLayer walls = map.tileMap.getLayer<TileLayer>('walls')!;
