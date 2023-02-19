@@ -27,25 +27,22 @@ class Stage extends Component {
     startingPoint = Vector2(start.x, start.y);
     _functionOnInitialized.call(startingPoint);
 
-    final holeLayer = map.tileMap.getLayer<ObjectGroup>('hole')!;
-    holeLayer.objects
-        .map((TiledObject data) => HoleObject(
-            position: Vector2(
-                data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
-        .forEach(add);
-
-    final boxLayer = map.tileMap.getLayer<ObjectGroup>('box')!;
-    boxLayer.objects
-        .map((TiledObject data) => BoxObject(
-        position: Vector2(
-            data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
-        .forEach(add);
-
-
+    _onAddObject('hole', (position) => HoleObject(position: position));
+    _onAddObject('box', (position) => BoxObject(position: position));
   }
 
   void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
     _functionOnInitialized = functionOnInitialized;
+  }
+
+  void _onAddObject(
+      String layerName, Component Function(Vector2 position) functionOnObject) {
+    map.tileMap
+        .getLayer<ObjectGroup>(layerName)!
+        .objects
+        .map((TiledObject data) => functionOnObject.call(Vector2(
+            data.x ~/ tileSize * tileSize, data.y ~/ tileSize * tileSize)))
+        .forEach(add);
   }
 
   bool isWall(Vector2 position) {
