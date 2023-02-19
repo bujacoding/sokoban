@@ -1,5 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../game/sokoban_game.dart';
@@ -65,23 +66,25 @@ class Player extends SpriteAnimationComponent
       final newPosition = position + Vector2(moveX, moveY);
 
       try {
-
         if (game.stage.isWall(newPosition)) {
           throw 'wall !!! $newPosition';
         }
 
-
         final box = game.stage.getBox(newPosition);
 
         if (box != null) {
-          if (!game.stage.pushBox(box, Vector2(moveX, moveY))) {
+          if (game.stage.pushBox(box, Vector2(moveX, moveY))) {
+            if (game.stage.isClear()) {
+              print('stage clear!!!');
+            }
+          } else {
             throw 'failed to push box ${box.position}';
           }
         }
 
         position = newPosition;
       } catch (e) {
-        print(e);
+        debugPrint(e.toString());
       } finally {
         moveX = 0;
         moveY = 0;

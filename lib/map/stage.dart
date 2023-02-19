@@ -81,4 +81,11 @@ class Stage extends Component {
     box.position = newPosition;
     return true;
   }
+
+  bool isClear() {
+    final Iterable<HoleObject> holes =
+        children.where((component) => component is HoleObject).cast();
+
+    return holes.every((hole) => getBox(hole.position) != null);
+  }
 }
