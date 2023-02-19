@@ -21,7 +21,9 @@ class SokobanGame extends FlameGame
     add(stage);
 
     stage.onInitialized((startingPoint) {
-      player = Player(position: stage.startingPoint);
+      player = Player(
+          position: stage.startingPoint +
+              Vector2(stage.tileSize / 2, stage.tileSize / 2));
       add(player);
 
       camera.zoom = 1;
