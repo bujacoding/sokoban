@@ -22,14 +22,34 @@ class SokobanGame extends FlameGame
 
     stage.onInitialized((startingPoint) {
       player = Player(
-          position: startingPoint +
-              Vector2(stage.tileSize / 2, stage.tileSize / 2));
+          position:
+              startingPoint + Vector2(stage.tileSize / 2, stage.tileSize / 2));
       add(player);
 
       camera.zoom = 1;
       camera.viewport = FixedResolutionViewport(
           Vector2(stage.tileSize * 10 * 1.2, stage.tileSize * 10 * 1.2));
     });
+  }
 
+  bool movePlayerTo(Vector2 position, Vector2 move) {
+    if (stage.isWall(position)) {
+      return false;
+    }
+
+    final box = stage.getBox(position);
+    if (box == null) {
+      return true;
+    }
+
+    if (!stage.pushBox(box, move)) {
+      return false;
+    }
+
+    if (stage.isClear()) {
+      print('stage clear!!!');
+    }
+
+    return true;
   }
 }

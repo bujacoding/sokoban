@@ -9,8 +9,7 @@ class Player extends SpriteAnimationComponent
     with KeyboardHandler, CollisionCallbacks, HasGameRef<SokobanGame> {
   Player({required super.position}) : super();
 
-  double moveX = 0;
-  double moveY = 0;
+  Vector2 move = Vector2(0, 0);
 
   @override
   Future<void> onLoad() async {
@@ -43,16 +42,16 @@ class Player extends SpriteAnimationComponent
     if (false) {
     } else if ([LogicalKeyboardKey.keyA, LogicalKeyboardKey.arrowLeft]
         .any((key) => event.logicalKey == key)) {
-      moveX = -16;
+      move.x = -16;
     } else if ([LogicalKeyboardKey.keyD, LogicalKeyboardKey.arrowRight]
         .any((key) => event.logicalKey == key)) {
-      moveX = 16;
+      move.x = 16;
     } else if ([LogicalKeyboardKey.keyW, LogicalKeyboardKey.arrowUp]
         .any((key) => event.logicalKey == key)) {
-      moveY = -16;
+      move.y = -16;
     } else if ([LogicalKeyboardKey.keyS, LogicalKeyboardKey.arrowDown]
         .any((key) => event.logicalKey == key)) {
-      moveY = 16;
+      move.y = 16;
     }
 
     return true;
@@ -62,33 +61,13 @@ class Player extends SpriteAnimationComponent
   void update(double dt) {
     super.update(dt);
 
-    if (moveX != 0 || moveY != 0) {
-      final newPosition = position + Vector2(moveX, moveY);
+    if (!move.isZero()) {
+      final newPosition = position + move;
 
-      try {
-        if (game.stage.isWall(newPosition)) {
-          throw 'wall !!! $newPosition';
-        }
-
-        final box = game.stage.getBox(newPosition);
-
-        if (box != null) {
-          if (game.stage.pushBox(box, Vector2(moveX, moveY))) {
-            if (game.stage.isClear()) {
-              print('stage clear!!!');
-            }
-          } else {
-            throw 'failed to push box ${box.position}';
-          }
-        }
-
+      if (game.movePlayerTo(newPosition, move)) {
         position = newPosition;
-      } catch (e) {
-        debugPrint(e.toString());
-      } finally {
-        moveX = 0;
-        moveY = 0;
       }
+      move = Vector2.zero();
     }
   }
 
