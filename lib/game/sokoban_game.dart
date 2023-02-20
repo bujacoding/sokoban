@@ -32,24 +32,6 @@ class SokobanGame extends FlameGame
     });
   }
 
-  bool movePlayerTo(Vector2 position, Vector2 move) {
-    if (stage.isWall(position)) {
-      return false;
-    }
-
-    final box = stage.getBox(position);
-    if (box == null) {
-      return true;
-    }
-
-    if (!stage.pushBox(box, move)) {
-      return false;
-    }
-
-    if (stage.isClear()) {
-      print('stage clear!!!');
-    }
-
-    return true;
-  }
+  bool movePlayerTo(Vector2 position, Vector2 move) =>
+      stage.movePlayerTo(position, move);
 }

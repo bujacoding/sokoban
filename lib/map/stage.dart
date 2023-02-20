@@ -89,4 +89,25 @@ class Stage extends Component {
 
     return holes.every((hole) => getBox(hole.position) != null);
   }
+
+  bool movePlayerTo(Vector2 position, Vector2 move) {
+    if (isWall(position)) {
+      return false;
+    }
+
+    final box = getBox(position);
+    if (box == null) {
+      return true;
+    }
+
+    if (!pushBox(box, move)) {
+      return false;
+    }
+
+    if (isClear()) {
+      print('stage clear!!!');
+    }
+
+    return true;
+  }
 }
