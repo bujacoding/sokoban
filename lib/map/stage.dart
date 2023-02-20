@@ -15,7 +15,9 @@ class Stage extends Component {
   late final tileRatio = tileSize / 16.0;
   late Function(dynamic startingPoint) _functionOnInitialized;
 
-  Vector2 startingPoint = Vector2(0, 0);
+  void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
+    _functionOnInitialized = functionOnInitialized;
+  }
 
   @override
   FutureOr<void> onLoad() async {
@@ -23,33 +25,27 @@ class Stage extends Component {
         'stage$level.tmx', Vector2(tileSize, tileSize));
     add(map);
 
-    final startLayer = map.tileMap.getLayer<ObjectGroup>('start')!;
-    final start = startLayer.objects.first;
-    startingPoint = getTilePosition(Vector2(start.x, start.y));
-    _functionOnInitialized.call(startingPoint);
+    map.tileMap.getLayer<ObjectGroup>('obj')!.objects.forEach(_onObject);
+  }
 
-    _onAddObject('hole', (position) => HoleObject(position: position));
-    _onAddObject('box', (position) => BoxObject(position: position));
+  void _onObject(TiledObject obj) {
+    final position = getTilePosition(Vector2(obj.x, obj.y));
+
+    if (obj.isPoint) {
+      _functionOnInitialized.call(position);
+    } else if (obj.isRectangle) {
+      add(BoxObject(position: position));
+    } else if (obj.isEllipse) {
+      add(HoleObject(position: position));
+    } else {
+      throw 'obj type error: $obj';
+    }
   }
 
   Vector2 getTilePosition(Vector2 position) => Vector2(
         position.x ~/ tileSize * tileSize,
         position.y ~/ tileSize * tileSize,
       );
-
-  void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
-    _functionOnInitialized = functionOnInitialized;
-  }
-
-  void _onAddObject(
-      String layerName, Component Function(Vector2 position) functionOnObject) {
-    map.tileMap
-        .getLayer<ObjectGroup>(layerName)!
-        .objects
-        .map((TiledObject data) =>
-            functionOnObject.call(getTilePosition(Vector2(data.x, data.y))))
-        .forEach(add);
-  }
 
   bool isWall(Vector2 position) {
     if (!map.toRect().contains(position.toOffset())) return false;
