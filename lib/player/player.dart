@@ -62,10 +62,8 @@ class Player extends SpriteAnimationComponent
     super.update(dt);
 
     if (!move.isZero()) {
-      final newPosition = position + move;
-
-      if (game.movePlayerTo(newPosition, move)) {
-        position = newPosition;
+      if (game.movePlayerTo(this, move)) {
+        print('move ok');
       }
       move = Vector2.zero();
     }

@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:sokoban/map/stage.dart';
@@ -32,6 +33,7 @@ class SokobanGame extends FlameGame
     });
   }
 
-  bool movePlayerTo(Vector2 position, Vector2 move) =>
-      stage.movePlayerTo(position, move);
+  bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
+    return stage.movePlayerTo(playerComponent, positionDelta);
+  }
 }

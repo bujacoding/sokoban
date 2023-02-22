@@ -90,24 +90,26 @@ class Stage extends Component {
     return holes.every((hole) => getBox(hole.position) != null);
   }
 
-  bool movePlayerTo(Vector2 position, Vector2 move) {
-    if (isWall(position)) {
-      return false;
-    }
+  bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
+    Vector2 positionTarget = playerComponent.position + positionDelta;
+    var positionIndex =
+        '(${positionTarget.x ~/ tileSize}, ${positionTarget.y ~/ tileSize})';
 
-    final box = getBox(position);
-    if (box == null) {
+    try {
+      if (isWall(positionTarget)) {
+        throw '$positionIndex is a wall.';
+      }
+
+      final box = getBox(positionTarget);
+      if (box != null && !pushBox(box, positionDelta)) {
+        throw 'Cannot move box on $positionIndex';
+      }
+
+      playerComponent.position = positionTarget;
       return true;
-    }
-
-    if (!pushBox(box, move)) {
+    } catch (e) {
+      print(e);
       return false;
     }
-
-    if (isClear()) {
-      print('stage clear!!!');
-    }
-
-    return true;
   }
 }
