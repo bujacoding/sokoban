@@ -14,6 +14,7 @@ class Stage extends Component {
   final tileSize = 16.0;
   late final tileRatio = tileSize / 16.0;
   late Function(dynamic startingPoint) _functionOnInitialized;
+  late Function() _onClear;
 
   void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
     _functionOnInitialized = functionOnInitialized;
@@ -101,8 +102,14 @@ class Stage extends Component {
       }
 
       final box = getBox(positionTarget);
-      if (box != null && !pushBox(box, positionDelta)) {
-        throw 'Cannot move box on $positionIndex';
+      if (box != null) {
+        if (!pushBox(box, positionDelta)) {
+          throw 'Cannot move box on $positionIndex';
+        }
+
+        if (isClear()) {
+          _onClear.call();
+        }
       }
 
       playerComponent.position = positionTarget;
@@ -111,5 +118,9 @@ class Stage extends Component {
       print(e);
       return false;
     }
+  }
+
+  void onClear(Function() functionOnClear) {
+    _onClear = functionOnClear;
   }
 }

@@ -31,6 +31,11 @@ class SokobanGame extends FlameGame
       camera.viewport = FixedResolutionViewport(
           Vector2(stage.tileSize * 10 * 1.2, stage.tileSize * 10 * 1.2));
     });
+
+    stage.onClear((){
+
+      print('NEXT GAME');
+    });
   }
 
   bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
