@@ -1,6 +1,5 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../game/sokoban_game.dart';
@@ -42,16 +41,16 @@ class Player extends SpriteAnimationComponent
     if (false) {
     } else if ([LogicalKeyboardKey.keyA, LogicalKeyboardKey.arrowLeft]
         .any((key) => event.logicalKey == key)) {
-      move.x = -16;
+      move.x = -1;
     } else if ([LogicalKeyboardKey.keyD, LogicalKeyboardKey.arrowRight]
         .any((key) => event.logicalKey == key)) {
-      move.x = 16;
+      move.x = 1;
     } else if ([LogicalKeyboardKey.keyW, LogicalKeyboardKey.arrowUp]
         .any((key) => event.logicalKey == key)) {
-      move.y = -16;
+      move.y = -1;
     } else if ([LogicalKeyboardKey.keyS, LogicalKeyboardKey.arrowDown]
         .any((key) => event.logicalKey == key)) {
-      move.y = 16;
+      move.y = 1;
     }
 
     return true;

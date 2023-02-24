@@ -5,14 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:sokoban/map/stage.dart';
 import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
+import 'package:sokoban/widget/game_pad.dart';
 
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
-  SokobanGame(this.context, {required this.initialLevel}) {
+  SokobanGame(
+    this.context, {
+    required this.initialLevel,
+    required this.gamePadController,
+  }) {
     // debugMode = true;
   }
 
   final BuildContext context;
+  final GamePadController gamePadController;
 
   final int initialLevel;
   late int level;
@@ -54,9 +60,11 @@ class SokobanGame extends FlameGame
       print('NEXT GAME');
       stage.initStage(level: ++level);
     });
+
+    gamePadController.onMove((direction) => movePlayerTo(player, direction));
   }
 
-  bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
-    return stage.movePlayerTo(playerComponent, positionDelta);
+  bool movePlayerTo(PositionComponent playerComponent, Vector2 direction) {
+    return stage.movePlayerTo(playerComponent, direction);
   }
 }
