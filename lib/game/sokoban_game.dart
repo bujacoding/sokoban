@@ -6,35 +6,40 @@ import 'package:sokoban/player/player.dart';
 
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
-  SokobanGame() {
+  SokobanGame({required this.initialLevel}) {
     // debugMode = true;
   }
 
-  late final Stage stage;
+  final int initialLevel;
+  late int level;
 
   late Player player;
+  late final Stage stage;
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
 
-    stage = Stage(level: 1);
-    add(stage);
+    level = initialLevel;
 
-    player = Player(position: Vector2.zero());
+    player = Player(position: Vector2.zero())..priority = 5;
     add(player);
+
+    stage = Stage(level: level)..priority = 0;
+    add(stage);
 
     stage.onInitialized((startingPoint) {
       player.position =
           startingPoint + Vector2(stage.tileSize, stage.tileSize) / 2;
       camera.zoom = 1;
       camera.viewport = FixedResolutionViewport(
-          Vector2(stage.tileSize * 10 * 1.2, stage.tileSize * 10 * 1.2));
+        Vector2(stage.tileSize, stage.tileSize) * 10 * 1.2,
+      );
     });
 
     stage.onClear(() {
       print('NEXT GAME');
-      stage.initStage(level: 2);
+      stage.initStage(level: ++level);
     });
   }
 

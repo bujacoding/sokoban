@@ -12,6 +12,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: GameWidget(game: SokobanGame()));
+    return SafeArea(child: GameWidget(game: SokobanGame(initialLevel: 1)));
   }
 }
