@@ -1,14 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/material.dart';
 import 'package:sokoban/map/stage.dart';
+import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
 
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
-  SokobanGame({required this.initialLevel}) {
+  SokobanGame(this.context, {required this.initialLevel}) {
     // debugMode = true;
   }
+
+  final BuildContext context;
 
   final int initialLevel;
   late int level;
@@ -37,7 +41,16 @@ class SokobanGame extends FlameGame
       );
     });
 
-    stage.onClear(() {
+    stage.onClear(() async {
+      await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.transparent,
+            content: ClearStagePopup(level: level),
+          );
+        },
+      );
       print('NEXT GAME');
       stage.initStage(level: ++level);
     });
