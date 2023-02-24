@@ -91,10 +91,9 @@ class Stage extends Component {
   }
 
   bool isClear() {
-    final Iterable<HoleObject> holes =
-        children.where((component) => component is HoleObject).cast();
-
-    return holes.every((hole) => getBox(hole.position) != null);
+    return children
+        .whereType<HoleObject>()
+        .every((hole) => getBox(hole.position) != null);
   }
 
   bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
