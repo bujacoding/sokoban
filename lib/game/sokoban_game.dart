@@ -21,20 +21,20 @@ class SokobanGame extends FlameGame
     stage = Stage(level: 1);
     add(stage);
 
-    stage.onInitialized((startingPoint) {
-      player = Player(
-          position:
-              startingPoint + Vector2(stage.tileSize / 2, stage.tileSize / 2));
-      add(player);
+    player = Player(position: Vector2.zero());
+    add(player);
 
+    stage.onInitialized((startingPoint) {
+      player.position =
+          startingPoint + Vector2(stage.tileSize, stage.tileSize) / 2;
       camera.zoom = 1;
       camera.viewport = FixedResolutionViewport(
           Vector2(stage.tileSize * 10 * 1.2, stage.tileSize * 10 * 1.2));
     });
 
-    stage.onClear((){
-
+    stage.onClear(() {
       print('NEXT GAME');
+      stage.initStage(level: 2);
     });
   }
 

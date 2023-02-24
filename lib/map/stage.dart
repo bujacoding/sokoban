@@ -10,7 +10,7 @@ class Stage extends Component {
   Stage({required this.level});
 
   final int level;
-  late final TiledComponent map;
+  late TiledComponent map;
   final tileSize = 16.0;
   late final tileRatio = tileSize / 16.0;
   late Function(dynamic startingPoint) _functionOnInitialized;
@@ -22,6 +22,12 @@ class Stage extends Component {
 
   @override
   FutureOr<void> onLoad() async {
+    initStage(level: level);
+  }
+
+  Future initStage({required int level}) async {
+    removeAll(children);
+
     map = await TiledComponent.load(
         'stage$level.tmx', Vector2(tileSize, tileSize));
     add(map);
