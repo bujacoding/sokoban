@@ -39,12 +39,13 @@ class SokobanGame extends FlameGame
     add(stage);
 
     stage.onInitialized((startingPoint) {
-      player.position =
-          startingPoint + Vector2(stage.tileSize, stage.tileSize) / 2;
+      var tileSize = stage.tileSize;
+      player.position = startingPoint + Vector2(tileSize, tileSize) / 2;
       camera.zoom = 1;
-      camera.viewport = FixedResolutionViewport(
-        Vector2(stage.tileSize, stage.tileSize) * 10 * 1.2,
-      );
+      var viewPort = Vector2(tileSize, tileSize) * 10 * 1.2;
+      camera.viewport = FixedResolutionViewport(viewPort);
+      camera.moveTo(-Vector2(tileSize, tileSize));
+      camera.speed = tileSize * 100;
     });
 
     stage.onClear(() async {
