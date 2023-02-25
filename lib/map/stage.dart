@@ -96,7 +96,8 @@ class Stage extends Component {
         .every((hole) => getBox(hole.position) != null);
   }
 
-  bool movePlayerTo(PositionComponent playerComponent, Vector2 positionDelta) {
+  bool movePlayerTo(PositionComponent playerComponent, Vector2 direction) {
+    final positionDelta = direction * tileSize;
     Vector2 positionTarget = playerComponent.position + positionDelta;
     var positionIndex =
         '(${positionTarget.x ~/ tileSize}, ${positionTarget.y ~/ tileSize})';
