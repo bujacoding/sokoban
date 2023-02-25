@@ -21,17 +21,19 @@ class GamePadWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width / 3,
-      height: MediaQuery.of(context).size.width / 3,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: Wrap(
         children: [
-          IconButton(
-              onPressed: () => controller.move(Vector2(0, -1)),
-              icon: Icon(
-                Icons.arrow_drop_up,
-                color: Colors.white,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () => controller.move(Vector2(0, -1)),
+                  icon: Icon(
+                    Icons.arrow_drop_up,
+                    color: Colors.white,
+                  )),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -43,12 +45,17 @@ class GamePadWidget extends StatelessWidget {
                   icon: Icon(Icons.arrow_right, color: Colors.white)),
             ],
           ),
-          IconButton(
-              onPressed: () => controller.move(Vector2(0, 1)),
-              icon: Icon(
-                Icons.arrow_drop_down,
-                color: Colors.white,
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () => controller.move(Vector2(0, 1)),
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.white,
+                  )),
+            ],
+          ),
         ],
       ),
     );
