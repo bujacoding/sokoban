@@ -1,6 +1,7 @@
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:sokoban/game/sokoban_game.dart';
+import 'package:swipe/swipe.dart';
 
 import '../../widget/game_pad.dart';
 
@@ -18,18 +19,26 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Stack(
-      children: [
-        GameWidget(
-            game: SokobanGame(
-          context,
-          initialLevel: 1,
-          gamePadController: gamePadController,
-        )),
-        Align(
-            alignment: Alignment.bottomLeft,
-            child: GamePadWidget(controller: gamePadController)),
-      ],
+            child: Swipe(
+      onSwipeUp: () => gamePadController.move(Vector2(0, -1)),
+      onSwipeDown: () => gamePadController.move(Vector2(0, 1)),
+      onSwipeLeft: () => gamePadController.move(Vector2(-1, 0)),
+      onSwipeRight: () => gamePadController.move(Vector2(1, 0)),
+      verticalMinDisplacement: 1,
+      horizontalMinDisplacement: 1,
+      child: Stack(
+        children: [
+          GameWidget(
+              game: SokobanGame(
+            context,
+            initialLevel: 1,
+            gamePadController: gamePadController,
+          )),
+          Align(
+              alignment: Alignment.bottomLeft,
+              child: GamePadWidget(controller: gamePadController)),
+        ],
+      ),
     )));
   }
 }
