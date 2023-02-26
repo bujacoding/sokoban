@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
               game: SokobanGame(
             context,
             initialLevel: 1,
-            gameController: gameController,
+            controller: gameController,
           )),
           if (kDebugMode)
             Align(

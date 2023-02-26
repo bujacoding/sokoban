@@ -13,13 +13,13 @@ class SokobanGame extends FlameGame
   SokobanGame(
     this.context, {
     required this.initialLevel,
-    required this.gameController,
+    required this.controller,
   }) {
     // debugMode = true;
   }
 
   final BuildContext context;
-  final GameController gameController;
+  final GameController controller;
 
   final int initialLevel;
   late int level;
@@ -64,30 +64,19 @@ class SokobanGame extends FlameGame
       stage.initStage(level: nextLevel());
     });
 
-    gameController.onMove((direction) => movePlayerTo(player, direction));
+    controller.onMove((direction) => movePlayerTo(player, direction));
 
-    gameController
-        .onPreviousLevel(() => stage.initStage(level: previousLevel()));
-    gameController.onNextLevel(() => stage.initStage(level: nextLevel()));
-    gameController.onChangeLevel((level) {
-      this.level = level;
+    controller.onChangeLevel((newLevel) {
+      level = newLevel;
+      controller.levelChanged(level);
       stage.initStage(level: level);
     });
-    gameController.onGetLevel(() => level);
-  }
-
-  int previousLevel() {
-    _changeLevel(-1);
-    return level;
-  }
-
-  void _changeLevel(int delta) {
-    level = (level + delta).clamp(1, maxLevel);
-    gameController.levelChanged(level);
+    controller.onGetLevel(() => level);
   }
 
   int nextLevel() {
-    _changeLevel(1);
+    level = (level + 1).clamp(1, maxLevel);
+    controller.levelChanged(level);
     return level;
   }
 

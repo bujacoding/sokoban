@@ -2,8 +2,6 @@ import 'package:flame/game.dart';
 
 class GameController {
   bool Function(Vector2 direction) _functionOnMove = (_) => false;
-  Function() _functionOnPreviousLevel = () {};
-  Function() _functionOnNextLevel = () {};
   Function(int level) _functionOnChangeLevel = (_) {};
   Function(int level) _functionOnLevelChanged = (_) {};
   Function() _functionOnGetLevel = () {};
@@ -17,19 +15,13 @@ class GameController {
   }
 
   void previousLevel() {
-    _functionOnPreviousLevel.call();
-  }
-
-  void onPreviousLevel(void Function() functionOnPreviousLevel) {
-    _functionOnPreviousLevel = functionOnPreviousLevel;
+    final level = getLevel() - 1;
+    if (level <= 0) return;
+    _functionOnChangeLevel.call(level);
   }
 
   void nextLevel() {
-    _functionOnNextLevel.call();
-  }
-
-  void onNextLevel(void Function() functionOnNextLevel) {
-    _functionOnNextLevel = functionOnNextLevel;
+    _functionOnChangeLevel.call(_functionOnGetLevel.call() + 1);
   }
 
   void changeLevel(int level) {
