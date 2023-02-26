@@ -1,7 +1,8 @@
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 
 class GameController {
-  bool Function(Vector2 direction) _functionOnMove = (_) => false;
+  final ValueNotifier moveValue = ValueNotifier(Vector2.zero());
   Function() _functionOnPreviousLevel = () {};
   Function() _functionOnNextLevel = () {};
   Function(int level) _functionOnChangeLevel = (_) {};
@@ -9,11 +10,13 @@ class GameController {
   Function() _functionOnGetLevel = () {};
 
   void move(Vector2 direction) {
-    _functionOnMove.call(direction);
+    moveValue.value = direction;
   }
 
   void onMove(bool Function(Vector2 direction) functionOnMove) {
-    _functionOnMove = functionOnMove;
+    moveValue.addListener(() {
+      functionOnMove.call(moveValue.value);
+    });
   }
 
   void previousLevel() {
