@@ -29,6 +29,7 @@ class SokobanGame extends FlameGame
 
   late Player player;
   late final Stage stage;
+  final int maxLevel = 100;
 
   @override
   Future<void> onLoad() async {
@@ -63,13 +64,29 @@ class SokobanGame extends FlameGame
         },
       );
       print('NEXT GAME');
-      stage.initStage(level: ++level);
+      stage.initStage(level: nextLevel());
     });
 
     gamePadController.onMove((direction) => movePlayerTo(player, direction));
 
-    gameDebugController.onPreviousLevel(() => stage.initStage(level: --level));
-    gameDebugController.onNextLevel(() => stage.initStage(level: ++level));
+    gameDebugController
+        .onPreviousLevel(() => stage.initStage(level: previousLevel()));
+    gameDebugController.onNextLevel(() => stage.initStage(level: nextLevel()));
+  }
+
+  int previousLevel() {
+    _changeLevel(-1);
+    return level;
+  }
+
+  void _changeLevel(int delta) {
+    level = (level + delta).clamp(0, maxLevel);
+    gameDebugController.changeLevel(level);
+  }
+
+  int nextLevel() {
+    _changeLevel(1);
+    return level;
   }
 
   bool movePlayerTo(PositionComponent playerComponent, Vector2 direction) {
