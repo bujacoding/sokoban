@@ -41,9 +41,9 @@ class Stage extends Component {
     if (obj.isPoint) {
       _functionOnInitialized.call(position);
     } else if (obj.isRectangle) {
-      add(BoxObject(position: position));
+      add(BoxObject(position: position)..priority = 2);
     } else if (obj.isEllipse) {
-      add(HoleObject(position: position));
+      add(HoleObject(position: position)..priority = 1);
     } else {
       throw 'obj type error: $obj';
     }
