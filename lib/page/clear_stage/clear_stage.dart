@@ -10,6 +10,8 @@ class ClearStagePopup extends StatefulWidget {
 }
 
 class _ClearStagePopupState extends State<ClearStagePopup> {
+  FocusNode nextButtonFocus = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +29,9 @@ class _ClearStagePopupState extends State<ClearStagePopup> {
         )),
         SizedBox(height: 16),
         ElevatedButton(
-            onPressed: () => Navigator.of(context).pop(), child: Text('Next')),
+            focusNode: nextButtonFocus..requestFocus(),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Next')),
       ],
     );
   }
