@@ -7,17 +7,21 @@ import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
 import 'package:sokoban/widget/game_pad.dart';
 
+import '../widget/game_debug_controller.dart';
+
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
   SokobanGame(
     this.context, {
     required this.initialLevel,
+    required this.gameDebugController,
     required this.gamePadController,
   }) {
     // debugMode = true;
   }
 
   final BuildContext context;
+  final GameDebugController gameDebugController;
   final GamePadController gamePadController;
 
   final int initialLevel;
@@ -63,6 +67,9 @@ class SokobanGame extends FlameGame
     });
 
     gamePadController.onMove((direction) => movePlayerTo(player, direction));
+
+    gameDebugController.onPreviousLevel(() => stage.initStage(level: --level));
+    gameDebugController.onNextLevel(() => stage.initStage(level: ++level));
   }
 
   bool movePlayerTo(PositionComponent playerComponent, Vector2 direction) {

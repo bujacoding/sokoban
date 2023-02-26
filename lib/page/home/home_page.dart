@@ -1,8 +1,10 @@
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sokoban/game/sokoban_game.dart';
 import 'package:swipe/swipe.dart';
 
+import '../../widget/game_debug_controller.dart';
 import '../../widget/game_pad.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -14,6 +16,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final gamePadController = GamePadController();
+  final gameController = GameDebugController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
               game: SokobanGame(
             context,
             initialLevel: 1,
+            gameDebugController: gameController,
             gamePadController: gamePadController,
           )),
+          if (kDebugMode)
+            Align(
+                alignment: Alignment.topCenter,
+                child:
+                    GameDebugControllerWidget(gameController: gameController)),
           Align(
               alignment: Alignment.bottomLeft,
               child: GamePadWidget(controller: gamePadController)),
