@@ -69,6 +69,10 @@ class SokobanGame extends FlameGame
     gameController
         .onPreviousLevel(() => stage.initStage(level: previousLevel()));
     gameController.onNextLevel(() => stage.initStage(level: nextLevel()));
+    gameController.onChangeLevel((level) {
+      this.level = level;
+      stage.initStage(level: level);
+    });
   }
 
   int previousLevel() {
@@ -77,8 +81,8 @@ class SokobanGame extends FlameGame
   }
 
   void _changeLevel(int delta) {
-    level = (level + delta).clamp(0, maxLevel);
-    gameController.changeLevel(level);
+    level = (level + delta).clamp(1, maxLevel);
+    gameController.levelChanged(level);
   }
 
   int nextLevel() {

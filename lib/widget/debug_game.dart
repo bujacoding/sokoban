@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../game/game_controller.dart';
 
@@ -19,11 +20,13 @@ class _DebugGameWidgetState extends State<DebugGameWidget> {
   final TextEditingController levelController = TextEditingController()
     ..text = '1';
 
+  GameController get controller => widget.controller;
+
   @override
   void initState() {
     super.initState();
 
-    widget.controller.onChangeLevel((level) => levelController.text = '$level');
+    controller.onLevelChanged((level) => levelController.text = '$level');
   }
 
   @override
@@ -31,24 +34,32 @@ class _DebugGameWidgetState extends State<DebugGameWidget> {
     return Row(
       children: [
         IconButton(
-          onPressed: () => widget.controller.previousLevel(),
+          onPressed: () => controller.previousLevel(),
           icon: Icon(Icons.arrow_back, color: Colors.purple),
         ),
         SizedBox(
-            width: 30,
-            child: TextField(
-              controller: levelController,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: Colors.purple),
-              textAlign: TextAlign.center,
-              cursorColor: Colors.purple,
-            )),
+          width: 30,
+          child: TextField(
+            controller: levelController,
+            onSubmitted: (value) => controller.changeLevel(int.parse(value)),
+            onTap: () => levelController.selection = TextSelection(
+                baseOffset: 0, extentOffset: levelController.value.text.length),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: Colors.purple),
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+            cursorColor: Colors.purple,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        ),
         IconButton(
-          onPressed: () => widget.controller.nextLevel(),
+          onPressed: () => controller.nextLevel(),
           icon: Icon(Icons.arrow_forward, color: Colors.purple),
         ),
+        Spacer(),
+        ElevatedButton(onPressed: () {}, child: Text('RESET')),
       ],
     );
   }
