@@ -15,13 +15,11 @@ class GameController {
   }
 
   void previousLevel() {
-    final level = getLevel() - 1;
-    if (level <= 0) return;
-    _functionOnChangeLevel.call(level);
+    _functionOnChangeLevel.call(getLevel() - 1);
   }
 
   void nextLevel() {
-    _functionOnChangeLevel.call(_functionOnGetLevel.call() + 1);
+    _functionOnChangeLevel.call(getLevel() + 1);
   }
 
   void changeLevel(int level) {

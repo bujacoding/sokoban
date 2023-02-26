@@ -60,27 +60,35 @@ class SokobanGame extends FlameGame
           );
         },
       );
-      print('NEXT GAME');
-      stage.initStage(level: nextLevel());
+      _initStage(level + 1);
     });
 
     controller.onMove((direction) => movePlayerTo(player, direction));
 
     controller.onChangeLevel((newLevel) {
-      level = newLevel;
-      controller.levelChanged(level);
-      stage.initStage(level: level);
+      _initStage(newLevel);
     });
     controller.onGetLevel(() => level);
   }
 
-  int nextLevel() {
-    level = (level + 1).clamp(1, maxLevel);
+  void _initStage(int newLevel) {
+    _changeLevel(newLevel);
+
     controller.levelChanged(level);
-    return level;
+    stage.initStage(level: level);
   }
 
   bool movePlayerTo(PositionComponent playerComponent, Vector2 direction) {
     return stage.movePlayerTo(playerComponent, direction);
+  }
+
+  bool _changeLevel(int newLevel) {
+    newLevel = newLevel.clamp(1, maxLevel);
+    if (newLevel == level) {
+      return false;
+    }
+    level = newLevel;
+
+    return true;
   }
 }
