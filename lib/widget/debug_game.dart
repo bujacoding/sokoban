@@ -59,7 +59,11 @@ class _DebugGameWidgetState extends State<DebugGameWidget> {
           icon: Icon(Icons.arrow_forward, color: Colors.purple),
         ),
         Spacer(),
-        ElevatedButton(onPressed: () {}, child: Text('RESET')),
+        ElevatedButton(
+            onPressed: () {
+              controller.changeLevel(controller.getLevel());
+            },
+            child: Text('RESET')),
       ],
     );
   }

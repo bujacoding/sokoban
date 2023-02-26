@@ -73,6 +73,7 @@ class SokobanGame extends FlameGame
       this.level = level;
       stage.initStage(level: level);
     });
+    gameController.onGetLevel(() => level);
   }
 
   int previousLevel() {

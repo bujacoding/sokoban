@@ -6,6 +6,7 @@ class GameController {
   late Function() _functionOnNextLevel;
   late Function(int level) _functionOnChangeLevel;
   late Function(int level) _functionOnLevelChanged;
+  late Function() _functionOnGetLevel;
 
   void move(Vector2 direction) {
     _functionOnMove.call(direction);
@@ -45,5 +46,13 @@ class GameController {
 
   void onLevelChanged(void Function(int level) functionOnLevelChanged) {
     _functionOnLevelChanged = functionOnLevelChanged;
+  }
+
+  int getLevel() {
+    return _functionOnGetLevel.call();
+  }
+
+  void onGetLevel(int Function() functionOnGetLevel) {
+    _functionOnGetLevel = functionOnGetLevel;
   }
 }
