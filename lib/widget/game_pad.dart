@@ -1,21 +1,11 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class GamePadController {
-  late bool Function(Vector2 direction) _functionOnMove;
-
-  void move(Vector2 direction) {
-    _functionOnMove.call(direction);
-  }
-
-  void onMove(bool Function(Vector2 direction) functionOnMove) {
-    _functionOnMove = functionOnMove;
-  }
-}
+import '../game/game_controller.dart';
 
 class GamePadWidget extends StatelessWidget {
   const GamePadWidget({Key? key, required this.controller}) : super(key: key);
-  final GamePadController controller;
+  final GameController controller;
 
   @override
   Widget build(BuildContext context) {

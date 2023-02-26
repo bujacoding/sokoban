@@ -5,24 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:sokoban/map/stage.dart';
 import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
-import 'package:sokoban/widget/game_pad.dart';
 
-import '../widget/game_debug_controller.dart';
+import 'game_controller.dart';
 
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
   SokobanGame(
     this.context, {
     required this.initialLevel,
-    required this.gameDebugController,
-    required this.gamePadController,
+    required this.gameController,
   }) {
     // debugMode = true;
   }
 
   final BuildContext context;
-  final GameDebugController gameDebugController;
-  final GamePadController gamePadController;
+  final GameController gameController;
 
   final int initialLevel;
   late int level;
@@ -67,11 +64,11 @@ class SokobanGame extends FlameGame
       stage.initStage(level: nextLevel());
     });
 
-    gamePadController.onMove((direction) => movePlayerTo(player, direction));
+    gameController.onMove((direction) => movePlayerTo(player, direction));
 
-    gameDebugController
+    gameController
         .onPreviousLevel(() => stage.initStage(level: previousLevel()));
-    gameDebugController.onNextLevel(() => stage.initStage(level: nextLevel()));
+    gameController.onNextLevel(() => stage.initStage(level: nextLevel()));
   }
 
   int previousLevel() {
@@ -81,7 +78,7 @@ class SokobanGame extends FlameGame
 
   void _changeLevel(int delta) {
     level = (level + delta).clamp(0, maxLevel);
-    gameDebugController.changeLevel(level);
+    gameController.changeLevel(level);
   }
 
   int nextLevel() {
