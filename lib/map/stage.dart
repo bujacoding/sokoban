@@ -30,7 +30,7 @@ class Stage extends Component {
     this.map?.dispose();
 
     final map =
-        MapComponent.tiled(level: level, tileSize: Vector2(tileSize, tileSize));
+        MapComponent.custom(level: level, tileSize: Vector2(tileSize, tileSize));
     await map.initAsync();
     this.map = map;
 

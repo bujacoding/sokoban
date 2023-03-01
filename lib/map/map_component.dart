@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 
+import 'custom_map.dart';
 import 'tiled_map_component.dart';
 
 abstract class MapComponent extends PositionComponent {
@@ -11,6 +12,10 @@ abstract class MapComponent extends PositionComponent {
 
   factory MapComponent.tiled({required int level, required Vector2 tileSize}) {
     return TiledMapComponent(level: level, tileSize: tileSize);
+  }
+
+  factory MapComponent.custom({required int level, required Vector2 tileSize}) {
+    return CustomMap(level: level, tileSize: tileSize);
   }
 
   MapComponent({required this.level, required this.tileSize});
