@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
-import 'package:flame_tiled/flame_tiled.dart';
 
 import '../obj/box_object.dart';
 import '../obj/hole_object.dart';
+import 'map_component.dart';
 
 class Stage extends Component {
   Stage({required this.level});
 
   final int level;
-  late TiledComponent map;
+  MapComponent? map;
   final tileSize = 16.0;
   late final tileRatio = tileSize / 16.0;
   late Function(dynamic startingPoint) _functionOnInitialized;
@@ -27,26 +27,18 @@ class Stage extends Component {
 
   Future initStage({required int level}) async {
     removeAll(children);
+    this.map?.dispose();
 
-    map = await TiledComponent.load(
-        'stage$level.tmx', Vector2(tileSize, tileSize));
+    final map =
+        MapComponent.tiled(level: level, tileSize: Vector2(tileSize, tileSize));
+    await map.initAsync();
+    this.map = map;
+
     add(map);
 
-    map.tileMap.getLayer<ObjectGroup>('obj')!.objects.forEach(_onObject);
-  }
-
-  void _onObject(TiledObject obj) {
-    final position = getTilePosition(Vector2(obj.x, obj.y));
-
-    if (obj.isPoint) {
-      _functionOnInitialized.call(position);
-    } else if (obj.isRectangle) {
-      add(BoxObject(position: position)..priority = 2);
-    } else if (obj.isEllipse) {
-      add(HoleObject(position: position)..priority = 1);
-    } else {
-      throw 'obj type error: $obj';
-    }
+    map.holeObjects.forEach((position) => add(HoleObject(position: position)));
+    map.boxObjects.forEach((position) => add(BoxObject(position: position)));
+    _functionOnInitialized.call(map.startingPosition);
   }
 
   Vector2 getTilePosition(Vector2 position) => Vector2(
@@ -55,16 +47,7 @@ class Stage extends Component {
       );
 
   bool isWall(Vector2 position) {
-    if (!map.toRect().contains(position.toOffset())) return false;
-
-    final TileLayer walls = map.tileMap.getLayer<TileLayer>('walls')!;
-    final Vector2 tileSize = map.tileMap.destTileSize;
-
-    final int x = position.x ~/ tileSize.x;
-    final int y = position.y ~/ tileSize.y;
-    final int index = y * (map.width ~/ tileSize.x) + x;
-
-    return walls.data![index] != 0;
+    return map!.isWall(position);
   }
 
   BoxObject? getBox(Vector2 position) {
