@@ -25,7 +25,7 @@ class CustomMap<T extends FlameGame> extends MapComponent
       ..removeWhere((element) => !element.contains('#'));
     this.map = levelText.toList(growable: false);
 
-    addTiles(map);
+    await addTiles(map);
 
     startingPosition = (findPosition(map, '@') + findPosition(map, '+')).first;
     holeObjects = findPosition(map, '.') + findPosition(map, '+');
