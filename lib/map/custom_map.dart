@@ -73,18 +73,20 @@ class CustomMap<T extends FlameGame> extends MapComponent
     for (var y = 0; y < map.length; y++) {
       final row = map[y];
       for (var x = 0; x < row.length; x++) {
-        add(SpriteComponent(
-            size: tileSize,
-            sprite: await Sprite.load('tile_floor.png'),
-            position: Vector2(x.toDouble(), y.toDouble())..multiply(tileSize)));
+        add(await loadSprite('tile_floor.png', x, y));
         final char = row[x];
         if (char == '#') {
-          add(SpriteComponent(
-              size: tileSize,
-              sprite: await Sprite.load('tile_wall.png'),
-              position: Vector2(x.toDouble(), y.toDouble())..multiply(tileSize)));
+          add(await loadSprite('tile_wall.png', x, y));
         }
       }
     }
+  }
+
+  Future<SpriteComponent> loadSprite(String src, int x, int y) async {
+    return SpriteComponent(
+      size: tileSize,
+      sprite: await Sprite.load(src),
+      position: Vector2(x.toDouble(), y.toDouble())..multiply(tileSize),
+    );
   }
 }
