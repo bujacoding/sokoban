@@ -32,7 +32,7 @@ class CustomMap<T extends FlameGame> extends MapComponent
     boxObjects = findPosition(map, '\$');
   }
 
-  Map<String, Object> getLevelInfo(int level) {
+  Map<String, dynamic> getLevelInfo(int level) {
     final levelFiles = [
       {'file': 'level1.txt', 'count': 100},
       {'file': 'level2.txt', 'count': 100},
@@ -41,8 +41,21 @@ class CustomMap<T extends FlameGame> extends MapComponent
       {'file': 'level5.txt', 'count': 100},
     ];
 
-    final levelInfo = {'data': levelFiles.first, 'index': 0};
-    return levelInfo;
+    int filledLevel = level;
+
+    for (var i = 0; i < levelFiles.length; i++) {
+      final levelFile = levelFiles[i];
+      final int count = levelFile['count']! as int;
+      if (filledLevel <= count) {
+        return {'data': levelFile, 'index': filledLevel - 1};
+      }
+      filledLevel -= count;
+    }
+
+    return {
+      'data': levelFiles.last,
+      'index': (levelFiles.last['count']! as int) - 1
+    };
   }
 
   @override
