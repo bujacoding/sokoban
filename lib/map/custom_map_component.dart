@@ -3,9 +3,9 @@ import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:sokoban/map/map_component.dart';
 
-class CustomMap<T extends FlameGame> extends MapComponent
+class CustomMapComponent<T extends FlameGame> extends MapComponent
     with HasGameRef<T> {
-  CustomMap({required super.level, required super.tileSize});
+  CustomMapComponent({required super.level, required super.tileSize});
 
   late final List<String> map;
 
