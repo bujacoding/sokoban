@@ -11,19 +11,8 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
 
   @override
   Future<void> initAsync() async {
-    Map<String, dynamic> levelInfo = getLevelInfo(level);
-
-    print(levelInfo);
-
-    final String file = levelInfo['data']['file']!;
-    final int index = levelInfo['index']!;
-
-    final text = await rootBundle.loadString('assets/levels/$file');
-    final levelText = (text.split(';')
-          ..removeWhere((element) => element.isEmpty))[index]
-        .split('\n')
-      ..removeWhere((element) => !element.contains('#'));
-    this.map = levelText.toList(growable: false);
+    final info = getLevelInfo(level);
+    this.map = await getMapFromBundle(info['file'], info['index']);
 
     await addTiles(map);
 
@@ -32,7 +21,7 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
     boxObjects = findPosition(map, '\$');
   }
 
-  Map<String, dynamic> getLevelInfo(int level) {
+  Map getLevelInfo(int level) {
     final levelFiles = [
       {'file': 'level1.txt', 'count': 100},
       {'file': 'level2.txt', 'count': 100},
@@ -47,15 +36,27 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
       final levelFile = levelFiles[i];
       final int count = levelFile['count']! as int;
       if (filledLevel <= count) {
-        return {'data': levelFile, 'index': filledLevel - 1};
+        return {
+          'file': levelFile['file'],
+          'index': filledLevel - 1,
+        };
       }
       filledLevel -= count;
     }
 
     return {
-      'data': levelFiles.last,
-      'index': (levelFiles.last['count']! as int) - 1
+      'file': levelFiles.last['file'],
+      'index': (levelFiles.last['count']! as int) - 1,
     };
+  }
+
+  Future<List<String>> getMapFromBundle(String filename, int index) async {
+    final text = await rootBundle.loadString('assets/levels/$filename');
+    final levelText = (text.split(';')
+          ..removeWhere((element) => element.isEmpty))[index]
+        .split('\n')
+      ..removeWhere((element) => !element.contains('#'));
+    return levelText;
   }
 
   @override
