@@ -38,7 +38,7 @@ class CustomMap<T extends FlameGame> extends MapComponent
       {'file': 'level2.txt', 'count': 100},
       {'file': 'level3.txt', 'count': 200},
       {'file': 'level4.txt', 'count': 100},
-      {'file': 'level5.txt', 'count': 100},
+      {'file': 'level5.txt', 'count': 99},
     ];
 
     int filledLevel = level;

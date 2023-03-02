@@ -26,7 +26,7 @@ class SokobanGame extends FlameGame
 
   late Player player;
   late final Stage stage;
-  final int maxLevel = 100;
+  final int maxLevel = 500+99;
 
   @override
   Future<void> onLoad() async {
