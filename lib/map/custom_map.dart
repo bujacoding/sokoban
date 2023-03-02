@@ -27,8 +27,8 @@ class CustomMap<T extends FlameGame> extends MapComponent
 
     addTiles(map);
 
-    startingPosition = findPosition(map, '@').first;
-    holeObjects = findPosition(map, '.');
+    startingPosition = (findPosition(map, '@') + findPosition(map, '+')).first;
+    holeObjects = findPosition(map, '.') + findPosition(map, '+');
     boxObjects = findPosition(map, '\$');
   }
 
