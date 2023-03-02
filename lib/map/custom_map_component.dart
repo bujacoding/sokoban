@@ -93,6 +93,8 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
         }
       }
     }
+    size = Vector2(map[0].length.toDouble(), map.length.toDouble())
+      ..multiply(tileSize);
   }
 
   Future<SpriteComponent> loadSprite(String src, int x, int y) async {
