@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/tiles/
+    - assets/levels/
 #    - map/
 #    - map/sample-tile/
 #    - map/tiles/

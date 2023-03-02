@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 
 import '../obj/box_object.dart';
 import '../obj/hole_object.dart';
-import 'map_component.dart';
+import '../map/map_component.dart';
 
 class Stage extends Component {
   Stage({required this.level});
