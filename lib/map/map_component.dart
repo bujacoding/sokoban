@@ -4,12 +4,6 @@ import 'custom_map_component.dart';
 import 'tiled_map_component.dart';
 
 abstract class MapComponent extends PositionComponent {
-  final int level;
-  final Vector2 tileSize;
-  Vector2 startingPosition = Vector2.zero();
-  List<Vector2> holeObjects = [];
-  List<Vector2> boxObjects = [];
-
   factory MapComponent.withType({
     required String type,
     required int level,
@@ -25,11 +19,19 @@ abstract class MapComponent extends PositionComponent {
     }
   }
 
+  final int level;
+  final Vector2 tileSize;
+  Vector2 startingPosition = Vector2.zero();
+  List<Vector2> holeObjects = [];
+  List<Vector2> boxObjects = [];
+
   MapComponent({required this.level, required this.tileSize});
 
   Future<void> initAsync();
 
   bool isWall(Vector2 position);
+
+  int getMaxLevel();
 
   void dispose() {
     removeAll(children);

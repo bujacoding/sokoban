@@ -4,7 +4,7 @@ class GameController {
   bool Function(Vector2 direction) _functionOnMove = (_) => false;
   Function(int level) _functionOnChangeLevel = (_) {};
   Function(int level) _functionOnLevelChanged = (_) {};
-  Function() _functionOnGetLevel = () {};
+  Function() _functionOnGetLevel = () => 0;
 
   void move(Vector2 direction) {
     _functionOnMove.call(direction);

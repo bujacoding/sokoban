@@ -9,6 +9,14 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
 
   late final List<String> map;
 
+  final levelFiles = [
+    {'file': 'level1.txt', 'count': 100},
+    {'file': 'level2.txt', 'count': 100},
+    {'file': 'level3.txt', 'count': 200},
+    {'file': 'level4.txt', 'count': 100},
+    {'file': 'level5.txt', 'count': 99},
+  ];
+
   @override
   Future<void> initAsync() async {
     final info = getLevelInfo(level);
@@ -21,15 +29,14 @@ class CustomMapComponent<T extends FlameGame> extends MapComponent
     boxObjects = findPosition(map, '\$');
   }
 
-  Map getLevelInfo(int level) {
-    final levelFiles = [
-      {'file': 'level1.txt', 'count': 100},
-      {'file': 'level2.txt', 'count': 100},
-      {'file': 'level3.txt', 'count': 200},
-      {'file': 'level4.txt', 'count': 100},
-      {'file': 'level5.txt', 'count': 99},
-    ];
+  @override
+  int getMaxLevel() {
+    return levelFiles
+        .map((e) => e['count'] as int)
+        .reduce((value, element) => value + element);
+  }
 
+  Map getLevelInfo(int level) {
     int filledLevel = level;
 
     for (var i = 0; i < levelFiles.length; i++) {
