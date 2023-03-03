@@ -1,10 +1,12 @@
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sokoban/game/sokoban_game.dart';
 import 'package:swipe/swipe.dart';
 
 import '../../game/game_controller.dart';
+import '../../game/game_view_model.dart';
 import '../../widget/debug_game.dart';
 import '../../widget/game_pad.dart';
 
@@ -12,11 +14,9 @@ class GamePage extends StatefulWidget {
   const GamePage({
     super.key,
     required this.mapType,
-    required this.initialLevel,
   });
 
   final String mapType;
-  final int initialLevel;
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -29,7 +29,7 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Level: ${gameController.getLevel()}'),
+          title: Text('Level: ${context.watch<GameViewModel>().level}'),
         ),
         body: SafeArea(
             child: Swipe(
@@ -43,8 +43,8 @@ class _GamePageState extends State<GamePage> {
             children: [
               GameWidget(
                   game: SokobanGame(
-                context,
-                initialLevel: widget.initialLevel,
+                    context,
+                initialLevel: context.watch<GameViewModel>().level,
                 controller: gameController,
                 mapType: widget.mapType,
               )),
