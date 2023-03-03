@@ -2,21 +2,21 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 
+import '../map/map_component.dart';
 import '../obj/box_object.dart';
 import '../obj/hole_object.dart';
-import '../map/map_component.dart';
 
-class Stage extends Component {
+class Stage extends PositionComponent {
   Stage({required this.level});
 
   final int level;
   MapComponent? map;
   final tileSize = 16.0;
   late final tileRatio = tileSize / 16.0;
-  late Function(dynamic startingPoint) _functionOnInitialized;
+  late Function(Vector2 startingPoint) _functionOnInitialized;
   late Function() _onClear;
 
-  void onInitialized(Function(dynamic startingPoint) functionOnInitialized) {
+  void onInitialized(Function(Vector2 startingPoint) functionOnInitialized) {
     _functionOnInitialized = functionOnInitialized;
   }
 
@@ -29,15 +29,16 @@ class Stage extends Component {
     removeAll(children);
     this.map?.dispose();
 
-    final map =
-        MapComponent.custom(level: level, tileSize: Vector2(tileSize, tileSize));
+    final map = MapComponent.custom(
+        level: level, tileSize: Vector2(tileSize, tileSize));
     await map.initAsync();
     this.map = map;
+    size = map.size;
 
     add(map);
 
-    map.holeObjects.forEach((position) => add(HoleObject(position: position)));
-    map.boxObjects.forEach((position) => add(BoxObject(position: position)));
+    addAll(map.holeObjects.map((position) => HoleObject(position: position)));
+    addAll(map.boxObjects.map((position) => BoxObject(position: position)));
     _functionOnInitialized.call(map.startingPosition);
   }
 

@@ -2,9 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:sokoban/stage/stage.dart';
 import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
+import 'package:sokoban/stage/stage.dart';
 
 import 'game_controller.dart';
 
@@ -41,13 +41,11 @@ class SokobanGame extends FlameGame
     add(stage);
 
     stage.onInitialized((startingPoint) {
-      var tileSize = stage.tileSize;
-      player.position = startingPoint + Vector2(tileSize, tileSize) / 2;
+      player.position = startingPoint + Vector2.all(stage.tileSize) / 2;
+      camera.viewport = FixedResolutionViewport(stage.size * 1.1);
+      camera.moveTo(-stage.size * 0.05);
+      camera.speed = stage.size.length;
       camera.zoom = 1;
-      var viewPort = Vector2(tileSize, tileSize) * 10 * 1.2;
-      camera.viewport = FixedResolutionViewport(viewPort);
-      camera.moveTo(-Vector2(tileSize, tileSize));
-      camera.speed = tileSize * 100;
     });
 
     stage.onClear(() async {
