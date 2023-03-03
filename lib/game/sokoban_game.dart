@@ -26,7 +26,7 @@ class SokobanGame extends FlameGame
 
   late Player player;
   late final Stage stage;
-  final int maxLevel = 500 + 99;
+  int get maxLevel => stage.maxLevel;
 
   @override
   Future<void> onLoad() async {
@@ -39,7 +39,7 @@ class SokobanGame extends FlameGame
 
     stage = Stage(
       mapType: mapType,
-      level: level,
+      initialLevel: level,
     )..priority = 0;
 
     add(stage);

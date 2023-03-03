@@ -12,6 +12,10 @@ class TiledMapComponent extends MapComponent {
 
   @override
   Future<void> initAsync() async {
+    maxLevel = await findMaxLevel();
+
+    int level = this.level.clamp(1, maxLevel);
+
     var levelFile = '$level'.padLeft(4, '0');
     tiled = await TiledComponent.load('$levelFile.tmx', tileSize);
     add(tiled);
@@ -19,8 +23,6 @@ class TiledMapComponent extends MapComponent {
     tiled.tileMap.getLayer<ObjectGroup>('obj')!.objects.forEach(_onObject);
 
     size = tiled.size;
-
-    maxLevel = await findMaxLevel();
   }
 
   @override

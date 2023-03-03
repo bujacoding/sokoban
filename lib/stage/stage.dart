@@ -8,17 +8,19 @@ import '../obj/hole_object.dart';
 
 class Stage extends PositionComponent {
   Stage({
-    required this.level,
+    required this.initialLevel,
     required this.mapType,
   });
 
   final String mapType;
-  final int level;
+  final int initialLevel;
   MapComponent? map;
   final tileSize = 16.0;
   late final tileRatio = tileSize / 16.0;
   late Function(Vector2 startingPoint) _functionOnInitialized;
   late Function() _onClear;
+
+  get maxLevel => map!.getMaxLevel();
 
   void onInitialized(Function(Vector2 startingPoint) functionOnInitialized) {
     _functionOnInitialized = functionOnInitialized;
@@ -26,7 +28,7 @@ class Stage extends PositionComponent {
 
   @override
   FutureOr<void> onLoad() async {
-    initStage(level: level);
+    initStage(level: initialLevel);
   }
 
   Future initStage({required int level}) async {
