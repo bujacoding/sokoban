@@ -10,10 +10,9 @@ import 'game_controller.dart';
 
 class SokobanGame extends FlameGame
     with HasCollisionDetection, HasKeyboardHandlerComponents {
-  SokobanGame(
-    this.context, {
+  SokobanGame(this.context, {
     required this.initialLevel,
-    required this.controller,
+    required this.controller, required this.mapType,
   }) {
     // debugMode = true;
   }
@@ -21,12 +20,13 @@ class SokobanGame extends FlameGame
   final BuildContext context;
   final GameController controller;
 
+  final String mapType;
   final int initialLevel;
   late int level;
 
   late Player player;
   late final Stage stage;
-  final int maxLevel = 500+99;
+  final int maxLevel = 500 + 99;
 
   @override
   Future<void> onLoad() async {
@@ -38,7 +38,7 @@ class SokobanGame extends FlameGame
     add(player);
 
     stage = Stage(
-      mapType: 'tiled',
+      mapType: mapType,
       level: level,
     )..priority = 0;
 
