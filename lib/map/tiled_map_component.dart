@@ -15,6 +15,8 @@ class TiledMapComponent extends MapComponent {
     add(tiled);
 
     tiled.tileMap.getLayer<ObjectGroup>('obj')!.objects.forEach(_onObject);
+
+    size = tiled.size;
   }
 
   void _onObject(TiledObject obj) {

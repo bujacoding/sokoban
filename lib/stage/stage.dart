@@ -7,8 +7,12 @@ import '../obj/box_object.dart';
 import '../obj/hole_object.dart';
 
 class Stage extends PositionComponent {
-  Stage({required this.level});
+  Stage({
+    required this.level,
+    required this.mapType,
+  });
 
+  final String mapType;
   final int level;
   MapComponent? map;
   final tileSize = 16.0;
@@ -29,8 +33,11 @@ class Stage extends PositionComponent {
     removeAll(children);
     this.map?.dispose();
 
-    final map = MapComponent.custom(
-        level: level, tileSize: Vector2(tileSize, tileSize));
+    final map = MapComponent.withType(
+      type: mapType,
+      level: level,
+      tileSize: Vector2(tileSize, tileSize),
+    );
     await map.initAsync();
     this.map = map;
     size = map.size;
@@ -41,11 +48,6 @@ class Stage extends PositionComponent {
     addAll(map.boxObjects.map((position) => BoxObject(position: position)));
     _functionOnInitialized.call(map.startingPosition);
   }
-
-  Vector2 getTilePosition(Vector2 position) => Vector2(
-        position.x ~/ tileSize * tileSize,
-        position.y ~/ tileSize * tileSize,
-      );
 
   bool isWall(Vector2 position) {
     return map!.isWall(position);

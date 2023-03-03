@@ -10,12 +10,19 @@ abstract class MapComponent extends PositionComponent {
   List<Vector2> holeObjects = [];
   List<Vector2> boxObjects = [];
 
-  factory MapComponent.tiled({required int level, required Vector2 tileSize}) {
-    return TiledMapComponent(level: level, tileSize: tileSize);
-  }
-
-  factory MapComponent.custom({required int level, required Vector2 tileSize}) {
-    return CustomMapComponent(level: level, tileSize: tileSize);
+  factory MapComponent.withType({
+    required String type,
+    required int level,
+    required Vector2 tileSize,
+  }) {
+    switch (type) {
+      case 'tiled':
+        return TiledMapComponent(level: level, tileSize: tileSize);
+      case 'custom':
+        return CustomMapComponent(level: level, tileSize: tileSize);
+      default:
+        throw 'type error: $type';
+    }
   }
 
   MapComponent({required this.level, required this.tileSize});

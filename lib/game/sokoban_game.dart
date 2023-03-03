@@ -37,7 +37,11 @@ class SokobanGame extends FlameGame
     player = Player(position: Vector2.zero())..priority = 5;
     add(player);
 
-    stage = Stage(level: level)..priority = 0;
+    stage = Stage(
+      mapType: 'tiled',
+      level: level,
+    )..priority = 0;
+
     add(stage);
 
     stage.onInitialized((startingPoint) {
