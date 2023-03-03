@@ -58,13 +58,15 @@ class TiledMapComponent extends MapComponent {
 
   Future<int> findMaxLevel() async {
     int level = 0;
+    final begin = DateTime.now();
     while (true) {
       try {
         String levelDigit = '${level + 1}'.padLeft(4, '0');
         await rootBundle.load('assets/tiles/$levelDigit.tmx');
         level++;
       } catch (e) {
-        print('max level is $level ($e)');
+        print(
+            'max level is $level / time elapsed ${DateTime.now().difference(begin)}');
         return level;
       }
     }
