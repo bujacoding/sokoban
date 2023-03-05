@@ -32,6 +32,10 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
+              onPressed: () => _lastCreatedGame(context),
+              child: const Text('Start Last Created Game'),
+            ),
+            TextButton(
               onPressed: () => _startGame(context),
               child: const Text('Start Game'),
             ),
@@ -120,6 +124,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (_) => GamePage(
               mapType: mapType,
+            )));
+  }
+
+  _lastCreatedGame(BuildContext context) {
+    context.read<GameViewModel>().level = 600;
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (_) => GamePage(
+              mapType: 'tiled',
             )));
   }
 }
