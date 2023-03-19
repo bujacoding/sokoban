@@ -70,6 +70,7 @@ flutter:
     - assets/images/
     - assets/tiles/
     - assets/levels/
+    - assets/audio/
 #    - map/
 #    - map/sample-tile/
 #    - map/tiles/
