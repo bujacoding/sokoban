@@ -103,7 +103,13 @@ class Stage extends PositionComponent {
       } else {
         var pushed = pushBox(box, positionDelta);
         if (pushed) {
-          AudioPlayer.instance.play('move_box');
+          if (children
+              .whereType<HoleObject>()
+              .any((element) => element.position == box.position)) {
+            AudioPlayer.instance.play('coin');
+          } else {
+            AudioPlayer.instance.play('move_box');
+          }
         } else {
           AudioPlayer.instance.play('incorrect');
           throw 'Cannot move box on $positionIndex';
