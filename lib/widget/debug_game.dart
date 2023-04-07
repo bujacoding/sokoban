@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../audio/audio_player.dart';
 import '../game/game_controller.dart';
 
 class DebugGameWidget extends StatefulWidget {
@@ -60,7 +61,8 @@ class _DebugGameWidgetState extends State<DebugGameWidget> {
         ),
         Spacer(),
         ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              await AudioPlayer.instance.play('reset');
               controller.changeLevel(controller.getLevel());
             },
             child: Text('RESET')),
