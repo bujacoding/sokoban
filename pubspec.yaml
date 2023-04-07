@@ -41,6 +41,7 @@ dependencies:
   provider: ^6.0.5
 
   swipe: ^0.0.1
+  flame_audio: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,7 @@ flutter:
     - assets/images/
     - assets/tiles/
     - assets/levels/
+    - assets/audio/
 #    - map/
 #    - map/sample-tile/
 #    - map/tiles/

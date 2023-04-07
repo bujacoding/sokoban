@@ -6,6 +6,7 @@ import 'package:sokoban/page/clear_stage/clear_stage.dart';
 import 'package:sokoban/player/player.dart';
 import 'package:sokoban/stage/stage.dart';
 
+import '../audio/audio_player.dart';
 import 'game_controller.dart';
 
 class SokobanGame extends FlameGame
@@ -44,7 +45,9 @@ class SokobanGame extends FlameGame
 
     add(stage);
 
-    stage.onInitialized((startingPoint) {
+    stage.onInitialized((startingPoint) async {
+      await AudioPlayer.instance.stopBgm();
+      AudioPlayer.instance.playBgm('game');
       player.position = startingPoint + Vector2.all(stage.tileSize) / 2;
       camera.viewport = FixedResolutionViewport(stage.size * 1.1);
       camera.moveTo(-stage.size * 0.05);
@@ -53,6 +56,8 @@ class SokobanGame extends FlameGame
     });
 
     stage.onClear(() async {
+      await AudioPlayer.instance.stopBgm();
+      AudioPlayer.instance.playBgm('clear');
       await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -92,5 +97,11 @@ class SokobanGame extends FlameGame
     level = newLevel;
 
     return true;
+  }
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    AudioPlayer.instance.stopBgm();
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flame/components.dart';
 
+import '../audio/audio_player.dart';
 import '../map/map_component.dart';
 import '../obj/box_object.dart';
 import '../obj/hole_object.dart';
@@ -92,12 +93,25 @@ class Stage extends PositionComponent {
 
     try {
       if (isWall(positionTarget)) {
+        AudioPlayer.instance.play('incorrect');
         throw '$positionIndex is a wall.';
       }
 
       final box = getBox(positionTarget);
-      if (box != null) {
-        if (!pushBox(box, positionDelta)) {
+      if (box == null) {
+        AudioPlayer.instance.play('move');
+      } else {
+        var pushed = pushBox(box, positionDelta);
+        if (pushed) {
+          if (children
+              .whereType<HoleObject>()
+              .any((element) => element.position == box.position)) {
+            AudioPlayer.instance.play('coin');
+          } else {
+            AudioPlayer.instance.play('move_box');
+          }
+        } else {
+          AudioPlayer.instance.play('incorrect');
           throw 'Cannot move box on $positionIndex';
         }
 

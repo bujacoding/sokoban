@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sokoban/audio/audio_player.dart';
 import 'package:sokoban/page/home/game_page.dart';
 
 import '../../game/game_controller.dart';
@@ -12,10 +13,28 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>{
   final gameController = GameController();
 
   String mapType = 'custom';
+
+  @override
+  void initState() {
+    super.initState();
+    _playBgm();
+  }
+
+  void _playBgm() {
+    AudioPlayer.instance.stopBgm();
+    AudioPlayer.instance.playBgm('intro');
+  }
+
+  @override
+  void dispose() {
+    print('hello dispose');
+    AudioPlayer.instance.stopBgm();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Level'),
                 ),
                 IconButton(
-                    onPressed: () => context.read<GameViewModel>().level =
-                        context.read<GameViewModel>().level - 1,
+                    onPressed: () {
+                      AudioPlayer.instance.play('coin');
+                      context.read<GameViewModel>().level =
+                        context.read<GameViewModel>().level - 1;
+                    },
                     icon: Icon(
                       Icons.arrow_left,
                       color: Theme.of(context).colorScheme.secondary,
@@ -64,8 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.secondary)),
                 IconButton(
-                    onPressed: () => context.read<GameViewModel>().level =
-                        context.read<GameViewModel>().level + 1,
+                    onPressed: () {
+                      AudioPlayer.instance.play('coin');
+                      context.read<GameViewModel>().level =
+                        context.read<GameViewModel>().level + 1;
+                    },
                     icon: Icon(
                       Icons.arrow_right,
                       color: Theme.of(context).colorScheme.secondary,
@@ -116,12 +141,18 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
     if (newLevel != null) {
+      AudioPlayer.instance.play('reset');
       gameViewModel.level = newLevel;
     }
   }
 
-  _startGame(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
+  _startGame(BuildContext context) async {
+    var navigatorState = Navigator.of(context);
+
+    await AudioPlayer.instance.stopBgm();
+    await AudioPlayer.instance.play('start_game');
+
+    navigatorState.push(MaterialPageRoute(
         builder: (_) => GamePage(
               mapType: mapType,
             )));
